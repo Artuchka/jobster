@@ -1,58 +1,47 @@
-import React from 'react';
-import logo from './logo.svg';
-import { Counter } from './features/counter/Counter';
-import './App.css';
+import React from "react"
+import { BrowserRouter, Route, Routes } from "react-router-dom"
+import { ToastContainer } from "react-toastify"
+import { Counter } from "./redux/features/counter/Counter"
+import { AddJob } from "./pages/AddJob.jsx"
+import { AllJobs } from "./pages/AllJobs"
+import { DashboardLayout } from "./pages/DashboardLayout"
+import { Error } from "./pages/Error"
+import { Home } from "./pages/Home"
+import { Landing } from "./pages/Landing"
+import { Profile } from "./pages/Profile"
+import { Register } from "./pages/Register"
+import "react-toastify/dist/ReactToastify.css"
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <Counter />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <span>
-          <span>Learn </span>
-          <a
-            className="App-link"
-            href="https://reactjs.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            React
-          </a>
-          <span>, </span>
-          <a
-            className="App-link"
-            href="https://redux.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Redux
-          </a>
-          <span>, </span>
-          <a
-            className="App-link"
-            href="https://redux-toolkit.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Redux Toolkit
-          </a>
-          ,<span> and </span>
-          <a
-            className="App-link"
-            href="https://react-redux.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            React Redux
-          </a>
-        </span>
-      </header>
-    </div>
-  );
+	return (
+		<>
+			<ToastContainer
+				position="top-center"
+				autoClose={5000}
+				hideProgressBar={false}
+				newestOnTop={false}
+				closeOnClick
+				rtl={false}
+				pauseOnFocusLoss
+				draggable
+				pauseOnHover
+				theme="light"
+			/>
+			<BrowserRouter>
+				<Routes>
+					<Route path="/" element={<DashboardLayout />}>
+						<Route index element={<Home />} />
+						<Route path="all-jobs" element={<AllJobs />} />
+						<Route path="add-job" element={<AddJob />} />
+						<Route path="profile" element={<Profile />} />
+					</Route>
+					<Route path="/landing" element={<Landing />} />
+					<Route path="/register" element={<Register />} />
+					<Route path="*" element={<Error />} />
+				</Routes>
+			</BrowserRouter>
+		</>
+	)
 }
 
-export default App;
+export default App
