@@ -13,26 +13,23 @@ import { ToastContainer } from "react-toastify"
 
 function App() {
 	return (
-		<ToastContainer
-			position="top-center"
-			autoClose={5000}
-			hideProgressBar={false}
-			newestOnTop={false}
-			closeOnClick
-			rtl={false}
-			pauseOnFocusLoss
-			draggable
-			pauseOnHover
-			theme="light"
-		/>
-	)
-}
+		<>
+			<ToastContainer
+				position="top-center"
+				autoClose={5000}
+				hideProgressBar={false}
+				newestOnTop={false}
+				closeOnClick
+				rtl={false}
+				pauseOnFocusLoss
+				draggable
+				pauseOnHover
+				theme="light"
+			/>
 
-export default App
-
-/* <BrowserRouter>
+			<BrowserRouter>
 				<Routes>
-					<Route path="/" element={<DashboardLayout />}>
+					{/* <Route path="/" element={<DashboardLayout />}>
 						<Route index element={<Home />} />
 						<Route path="all-jobs" element={<AllJobs />} />
 						<Route path="add-job" element={<AddJob />} />
@@ -40,6 +37,11 @@ export default App
 					</Route>
 					<Route path="/landing" element={<Landing />} />
 					<Route path="/register" element={<Register />} />
-					<Route path="*" element={<Error />} />
+					<Route path="*" element={<Error />} /> */}
 				</Routes>
-			</BrowserRouter> */
+			</BrowserRouter>
+		</>
+	)
+}
+
+export default App
