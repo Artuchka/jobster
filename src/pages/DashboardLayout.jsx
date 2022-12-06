@@ -5,7 +5,7 @@ import React from "react"
 // import { Sidebar } from "../components/Sidebar"
 // import { selectSidebar } from "../redux/features/sidebar/sidebarSlice"
 // import { selectUser } from "../redux/features/user/userSlice"
-// import "./styles/dashboard.scss"
+import "./styles/dashboard.scss"
 
 export const DashboardLayout = () => {
 	// const { user } = useSelector(selectUser)
