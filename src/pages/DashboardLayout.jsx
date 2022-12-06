@@ -1,6 +1,6 @@
 import React from "react"
 // import { useSelector } from "react-redux"
-// import { Navigate, Outlet } from "react-router-dom"
+import { Navigate, Outlet } from "react-router-dom"
 import { Header } from "../components/Header"
 import { Sidebar } from "../components/Sidebar"
 // import { selectSidebar } from "../redux/features/sidebar/sidebarSlice"
@@ -16,7 +16,7 @@ export const DashboardLayout = () => {
 	// }
 
 	return (
-		<div className={`layout ${isOpen ? "open" : ""}`}>
+		<div className={`layout ${true ? "open" : ""}`}>
 			<div className="sidebar">
 				<Sidebar />
 			</div>
