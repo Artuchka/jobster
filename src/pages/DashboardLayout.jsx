@@ -10,20 +10,17 @@ import "./styles/dashboard.scss"
 export const DashboardLayout = () => {
 	// const { user } = useSelector(selectUser)
 	// const { isOpen } = useSelector(selectSidebar)
-
 	// if (!("email" in user)) {
 	// 	return <Navigate to="/landing" />
 	// }
-
-	return (
-		<div className={`layout ${true ? "open" : ""}`}>
-			<div className="sidebar">{/* <Sidebar /> */}</div>
-			<div className="sidebar__bg"></div>
-
-			<div className="main">
-				{/* <Header /> */}
-				{/* <Outlet /> */}
-			</div>
-		</div>
-	)
+	// return (
+	// 	<div className={`layout ${true ? "open" : ""}`}>
+	// 		<div className="sidebar">{/* <Sidebar /> */}</div>
+	// 		<div className="sidebar__bg"></div>
+	// 		<div className="main">
+	// 			{/* <Header /> */}
+	// 			{/* <Outlet /> */}
+	// 		</div>
+	// 	</div>
+	// )
 }
