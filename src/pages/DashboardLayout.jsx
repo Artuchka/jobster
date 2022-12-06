@@ -11,7 +11,6 @@ export const DashboardLayout = () => {
 	const { user } = useSelector(selectUser)
 	const { isOpen } = useSelector(selectSidebar)
 
-	console.log(isOpen)
 	if (!("email" in user)) {
 		return <Navigate to="/landing" />
 	}
