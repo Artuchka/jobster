@@ -27,9 +27,9 @@ export const SignForm = () => {
 		if ("name" in user) {
 			console.log("doing")
 			const { name, email, password } = user
-			setValues((prev) => ({ ...prev, name, email }))
+			setValues((prev) => ({ ...prev, name, email, password }))
 		}
-	}, [])
+	}, [user])
 
 	useEffect(() => {
 		if ("token" in user) {

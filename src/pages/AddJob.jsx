@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react"
+import React, { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { toast } from "react-toastify"
 import { InputRow } from "../components/InputRow"
@@ -31,7 +31,7 @@ export const AddJob = () => {
 				updateAddJob({ name: "jobLocation", value: user.location })
 			)
 		}
-	}, [])
+	}, [user])
 
 	const dispatch = useDispatch()
 

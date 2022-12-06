@@ -3,7 +3,6 @@ import { FaLocationArrow } from "react-icons/fa"
 import { MdOutlineBusinessCenter } from "react-icons/md"
 import { BsFillCalendar2WeekFill } from "react-icons/bs"
 import { JobStatus } from "./JobStatus"
-import { Button } from "./Button"
 import { ButtonLight } from "./ButtonLight"
 
 export const JobItem = () => {

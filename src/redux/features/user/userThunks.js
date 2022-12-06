@@ -1,5 +1,4 @@
 import { customFetch } from "../../../utils/axiosCustom"
-import axios from "axios"
 import { removeUser } from "./userSlice"
 
 export const updateUserThunk = async (url, user, thunkAPI) => {

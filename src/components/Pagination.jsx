@@ -1,6 +1,5 @@
 import React from "react"
 import { Button } from "./Button"
-import { ButtonLight } from "./ButtonLight"
 
 export const Pagination = () => {
 	return (
