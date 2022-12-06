@@ -17,13 +17,11 @@ export const DashboardLayout = () => {
 
 	return (
 		<div className={`layout ${true ? "open" : ""}`}>
-			<div className="sidebar">
-				<Sidebar />
-			</div>
+			<div className="sidebar">{/* <Sidebar /> */}</div>
 			<div className="sidebar__bg"></div>
 
 			<div className="main">
-				<Header />
+				{/* <Header /> */}
 				<Outlet />
 			</div>
 		</div>
