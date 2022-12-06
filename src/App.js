@@ -5,7 +5,7 @@ import { ToastContainer } from "react-toastify"
 // import { AllJobs } from "./pages/AllJobs"
 import { DashboardLayout } from "./pages/DashboardLayout"
 import { Error } from "./pages/Error"
-import { Home } from "./pages/Home"
+// import { Home } from "./pages/Home"
 import { Landing } from "./pages/Landing"
 // import { Profile } from "./pages/Profile"
 import { Register } from "./pages/Register"
@@ -30,8 +30,8 @@ function App() {
 			<BrowserRouter>
 				<Routes>
 					<Route path="/" element={<DashboardLayout />}>
-						<Route index element={<Home />} />
-						{/*<Route path="all-jobs" element={<AllJobs />} />
+						{/*<Route index element={<Home />} />
+						<Route path="all-jobs" element={<AllJobs />} />
 						<Route path="add-job" element={<AddJob />} />
 						<Route path="profile" element={<Profile />} />*/}
 					</Route>
