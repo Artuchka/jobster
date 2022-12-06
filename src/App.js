@@ -29,12 +29,12 @@ function App() {
 
 			<BrowserRouter>
 				<Routes>
-					<Route path="/" element={<DashboardLayout />}>
-						{/*<Route index element={<Home />} />
+					{/* <Route path="/" element={<DashboardLayout />}> */}
+					{/*<Route index element={<Home />} />
 						<Route path="all-jobs" element={<AllJobs />} />
 						<Route path="add-job" element={<AddJob />} />
 						<Route path="profile" element={<Profile />} />*/}
-					</Route>
+					{/* </Route> */}
 					<Route path="/landing" element={<Landing />} />
 					<Route path="/register" element={<Register />} />
 					<Route path="*" element={<Error />} />
