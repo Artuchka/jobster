@@ -1,71 +1,34 @@
-import axios from "axios"
 import { toast } from "react-toastify"
-import { customFetch } from "../../../utils/axiosCustom"
 import {
 	addUserToLS,
 	getUserFromLS,
 	removeUserFromLS,
 } from "../../../utils/localStorage"
+import {
+	loginUserThunk,
+	registerUserThunk,
+	updateUserThunk,
+} from "./userThunks"
 
 const { createSlice, createAsyncThunk } = require("@reduxjs/toolkit")
 
 export const registerUser = createAsyncThunk(
 	"user/registerUser",
-	async (user, thinkAPI) => {
-		console.log(`registering user:`, user)
-		try {
-			const { name, email, password } = user
-			const { data } = await customFetch.post("/auth/register", {
-				name,
-				email,
-				password,
-			})
-			return thinkAPI.fulfillWithValue(data.user)
-		} catch (error) {
-			return thinkAPI.rejectWithValue(error.response.data.msg)
-		}
+	async (user, thunkAPI) => {
+		return registerUserThunk("/auth/register", user, thunkAPI)
 	}
 )
 export const loginUser = createAsyncThunk(
 	"user/loginUser",
-	async (user, thinkAPI) => {
-		console.log(`logining user:`, user)
-		try {
-			const { email, password } = user
-			const { data } = await customFetch.post("/auth/login", {
-				email,
-				password,
-			})
-			return data.user
-		} catch (error) {
-			return thinkAPI.rejectWithValue(error.response.data.msg)
-		}
+	async (user, thunkAPI) => {
+		return loginUserThunk("/auth/login", user, thunkAPI)
 	}
 )
 
 export const updateUser = createAsyncThunk(
 	"user/updateUser",
 	async (user, thunkAPI) => {
-		try {
-			const { data } = await customFetch.patch("/auth/updateUser", user, {
-				headers: {
-					authorization: `Bearer ${
-						thunkAPI.getState().user.user.token
-					}`,
-				},
-			})
-
-			return data.user
-		} catch (error) {
-			console.log(error)
-			if (error.response.status === 401) {
-				thunkAPI.dispatch(removeUser())
-				return thunkAPI.rejectWithValue(
-					"you have no acces to this page"
-				)
-			}
-			return thunkAPI.rejectWithValue(error.response.data.msg)
-		}
+		return updateUserThunk("/auth/updateUser", user, thunkAPI)
 	}
 )
 

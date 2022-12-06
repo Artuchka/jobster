@@ -1,80 +1,109 @@
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
+import { useDispatch, useSelector } from "react-redux"
+import { toast } from "react-toastify"
 import { InputRow } from "../components/InputRow"
 import { SelectRow } from "../components/SelectRow"
+import {
+	addJob,
+	clearAddJob,
+	selectAddJob,
+	updateAddJob,
+} from "../redux/features/addJob/addJobSlice"
+import { selectUser } from "../redux/features/user/userSlice"
 import { Button } from "./../components/Button"
 
-const initialState = {
-	position: "",
-	company: "",
-	location: "",
-	status: "",
-	type: "",
-}
 export const AddJob = () => {
-	const [values, setValues] = useState(initialState)
+	const {
+		position,
+		company,
+		jobLocation,
+		status,
+		statusOptions,
+		jobType,
+		jobTypeOptions,
+	} = useSelector(selectAddJob)
+
+	const { user } = useSelector(selectUser)
+
+	useEffect(() => {
+		if ("location" in user) {
+			dispatch(
+				updateAddJob({ name: "jobLocation", value: user.location })
+			)
+		}
+	}, [])
+
+	const dispatch = useDispatch()
 
 	const handleChange = (e) => {
 		const { name, value } = e.target
-		setValues({ ...values, [name]: value })
-		console.log(values)
+		dispatch(updateAddJob({ name, value }))
+	}
+	const handleSubmit = (e) => {
+		e.preventDefault()
+		if (!position || !company || !jobLocation) {
+			toast.error("complete all fields please")
+			return
+		}
+		dispatch(addJob())
 	}
 	return (
 		<div
 			className="wrapper p-8 bg-gray-light 
 		min-h-screen flex flex-col gap-10"
 		>
-			<form className=" bg-white py-4 px-14 flex flex-col  gap-6  w-full max-w-4xl border-t-4 border-blue-primary rounded-lg shadow-md hover:shadow-2xl transition-all duration-700">
+			<form
+				className=" bg-white py-4 px-14 flex flex-col  gap-6  w-full max-w-4xl border-t-4 border-blue-primary rounded-lg shadow-md hover:shadow-2xl transition-all duration-700"
+				onSubmit={handleSubmit}
+			>
 				<h2 className="text-2xl text-blue-dark">Add Job</h2>
 
 				<InputRow
 					title="Position"
 					name="position"
-					value={values.position}
+					value={position}
 					handleChange={handleChange}
 				/>
 				<InputRow
 					title="Company"
 					name="company"
-					value={values.company}
+					value={company}
 					handleChange={handleChange}
 				/>
 				<InputRow
 					title="Job Location"
-					name="location"
-					value={values.location}
+					name="jobLocation"
+					value={jobLocation}
 					handleChange={handleChange}
 				/>
 
 				<SelectRow
 					title="status"
 					name="status"
-					value={values.status}
+					value={status}
 					handleChange={handleChange}
-				>
-					<option value="all">all</option>
-					<option value="interview">interview</option>
-					<option value="pending">pending</option>
-					<option value="declined">declined</option>
-				</SelectRow>
+					options={statusOptions}
+				/>
 
 				<SelectRow
 					title="Job Type"
-					name="type"
-					value={values.type}
+					name="jobType"
+					value={jobType}
 					handleChange={handleChange}
-				>
-					<option value="all">all</option>
-					<option value="full-time">full-time</option>
-					<option value="part-time">part-time</option>
-					<option value="intership">intership</option>
-					<option value="remote">remote</option>
-				</SelectRow>
+					options={jobTypeOptions}
+				/>
 
 				<div className="buttons flex gap-3 w-full">
-					<Button state="gray" className="w-full">
+					<Button
+						state="gray"
+						className="w-full"
+						onClick={() => {
+							dispatch(clearAddJob())
+						}}
+					>
 						clear
 					</Button>
-					<Button state="dark" className="w-full">
+					<Button state="dark" className="w-full" type="submit">
 						submit
 					</Button>
 				</div>

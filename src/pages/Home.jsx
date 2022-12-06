@@ -19,8 +19,6 @@ export const Home = () => {
 			className="p-8 bg-gray-light 
 	min-h-screen"
 		>
-			<Button onClick={() => toast.warn("🦄 Wow so easy!")}>click</Button>
-
 			<div className="statcard-list flex flex-col gap-4">
 				<StatCard />
 				<StatCard />
