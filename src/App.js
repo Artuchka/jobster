@@ -1,7 +1,6 @@
 import React from "react"
 import { BrowserRouter, Route, Routes } from "react-router-dom"
 import { ToastContainer } from "react-toastify"
-import { Counter } from "./redux/features/counter/Counter"
 import { AddJob } from "./pages/AddJob.jsx"
 import { AllJobs } from "./pages/AllJobs"
 import { DashboardLayout } from "./pages/DashboardLayout"

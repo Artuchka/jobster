@@ -21,7 +21,6 @@ export const Header = () => {
 			<BiMenuAltLeft
 				className="text-4xl text-blue-primary cursor-pointer  "
 				onClick={() => {
-					console.log("toggling")
 					dispatch(toggleSidebar())
 				}}
 			/>

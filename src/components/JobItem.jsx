@@ -5,8 +5,14 @@ import { BsFillCalendar2WeekFill } from "react-icons/bs"
 import { JobStatus } from "./JobStatus"
 import { Button } from "./Button"
 import { ButtonLight } from "./ButtonLight"
+import { useDispatch } from "react-redux"
 
-export const JobItem = () => {
+export const JobItem = (props) => {
+	const { company, jobLocation, position, jobType, status, _id, createdAt } =
+		props
+
+	const dispatch = useDispatch()
+
 	return (
 		<div className="bg-white shadow-xl rounded-md">
 			<div className="naming flex gap-5 items-stretch  p-4 border-b-2  border-b-gray-primary ">
@@ -15,33 +21,35 @@ export const JobItem = () => {
 				</div>
 				<div className="desc flex flex-col justify-center gap-2">
 					<div className="jobname text-xl text-blue-dark">
-						Civil Engineer
+						{position}
 					</div>
-					<div className="company text-gray-primary">
-						Bechtelar-Bednar
-					</div>
+					<div className="company text-gray-primary">{company}</div>
 				</div>
 			</div>
 			<div className="info  p-4  grid grid-cols-2 gap-6">
 				<div className="flex gap-3 ">
 					<FaLocationArrow className="text-gray-primary" />
-					<span className="text-blue-dark">Kiamba</span>
+					<span className="text-blue-dark">{jobLocation}</span>
 				</div>
 				<div className="flex gap-3 ">
 					<BsFillCalendar2WeekFill className="text-gray-primary" />
-					<span className="text-blue-dark">Dec 27th, 2021</span>
+					<span className="text-blue-dark">{createdAt}</span>
 				</div>
 
 				<div className="flex gap-3 ">
 					<MdOutlineBusinessCenter className="text-gray-primary" />
-					<span className="text-blue-dark">Internship</span>
+					<span className="text-blue-dark">{jobType}</span>
 				</div>
 				<JobStatus>declined</JobStatus>
 			</div>
 
 			<div className="buttons flex gap-3 px-4 pb-4 ">
-				<ButtonLight state="green">edit</ButtonLight>
-				<ButtonLight state="red">delete</ButtonLight>
+				<ButtonLight state="green" onClick={() => dispatch()}>
+					edit
+				</ButtonLight>
+				<ButtonLight state="red" onClick={() => dispatch()}>
+					delete
+				</ButtonLight>
 			</div>
 		</div>
 	)

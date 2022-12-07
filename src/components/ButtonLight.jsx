@@ -1,8 +1,9 @@
 import React from "react"
 
-export const ButtonLight = ({ children, className, state }) => {
+export const ButtonLight = ({ children, className, state, onClick }) => {
 	return (
 		<div
+			onClick={onClick}
 			className={` ${
 				state === "green" ? "bg-green-light text-green-dark" : ""
 			} 

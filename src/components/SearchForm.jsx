@@ -1,4 +1,11 @@
 import React, { useState } from "react"
+import { useDispatch, useSelector } from "react-redux"
+import { selectAddJob } from "../redux/features/addJob/addJobSlice"
+import {
+	clearFilters,
+	selectAllJobs,
+	updateFilters,
+} from "../redux/features/allJobs/slice"
 import { Button } from "./Button"
 import { InputRow } from "./InputRow"
 import { SelectRow } from "./SelectRow"
@@ -11,11 +18,20 @@ const initialState = {
 }
 export const SearchForm = () => {
 	const [values, setValues] = useState(initialState)
+	const {
+		search,
+		status,
+		type,
+		sort,
+		statusOptions,
+		typeOptions,
+		sortOptions,
+	} = useSelector(selectAllJobs)
+	const dispatch = useDispatch()
 
 	const handleChange = (e) => {
 		const { name, value } = e.target
-		setValues({ ...values, [name]: value })
-		console.log(values)
+		dispatch(updateFilters({ name, value }))
 	}
 
 	return (
@@ -25,50 +41,38 @@ export const SearchForm = () => {
 			<InputRow
 				title="Search"
 				name="search"
-				value={values.search}
+				value={search}
 				handleChange={handleChange}
 			/>
 
 			<SelectRow
 				title="status"
 				name="status"
-				value={values.status}
+				value={status}
 				handleChange={handleChange}
-			>
-				<option value="all">all</option>
-				<option value="interview">interview</option>
-				<option value="pending">pending</option>
-				<option value="declined">declined</option>
-			</SelectRow>
+				options={statusOptions}
+			/>
 
 			<SelectRow
 				title="Type"
 				name="type"
-				value={values.type}
+				value={type}
 				handleChange={handleChange}
-			>
-				<option value="all">all</option>
-				<option value="full-time">full-time</option>
-				<option value="part-time">part-time</option>
-				<option value="intership">intership</option>
-				<option value="remote">remote</option>
-			</SelectRow>
+				options={typeOptions}
+			/>
 
 			<SelectRow
 				title="Sort"
 				name="sort"
-				value={values.sort}
+				value={sort}
 				handleChange={handleChange}
-			>
-				<option value="latest">latest</option>
-				<option value="oldest">oldest</option>
-				<option value="a-z">a-z</option>
-				<option value="z-a">z-a</option>
-			</SelectRow>
+				options={sortOptions}
+			/>
 
 			<Button
 				className="w-full py-2 !bg-red-light !text-red-primary
     hover:!bg-red-dark hover:!text-white"
+				onClick={() => dispatch(clearFilters())}
 			>
 				Clear Filters{" "}
 			</Button>
