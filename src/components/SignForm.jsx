@@ -49,7 +49,11 @@ export const SignForm = () => {
 
 		const badInputs = Object.keys(values)
 			.reduce((total, curr) => {
-				if (curr === "isMember" || (values.isMember && !values.name))
+				if (
+					curr === "isMember" ||
+					curr === "isTestUser" ||
+					(values.isMember && !values.name)
+				)
 					return total
 				if (!values[curr]) return [...total, curr]
 				return total
