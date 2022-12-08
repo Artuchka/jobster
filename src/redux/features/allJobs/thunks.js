@@ -5,7 +5,11 @@ const HTTP_UNAUTHORIZED_CODE = 401
 
 export const getJobsThunk = async (_, thunkAPI) => {
 	try {
-		const { data } = await customFetch.get("/jobs")
+		const { search, page, status, type, sort } = thunkAPI.getState().allJobs
+		console.log(search)
+		let params = `?&sort=latest&status=${status}&page=${page}&jobType=${type}`
+		if (search) params += `&search=${search}`
+		const { data } = await customFetch.get(`/jobs${params}`)
 		return data
 	} catch (error) {
 		if (error.response.status === HTTP_UNAUTHORIZED_CODE) {

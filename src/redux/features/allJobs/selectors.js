@@ -6,18 +6,19 @@ export const selectStats = (state) => ({
 	monthlyApplications: state.allJobs.monthlyApplications,
 })
 
-export const selectFilteredJobs = createSelector([selectAllJobs], (allJobs) => {
-	const { jobs, search, sort, status, type } = allJobs
+// NO MORE FRONT-END FILTERING, BEACH
+// export const selectFilteredJobs = createSelector([selectAllJobs], (allJobs) => {
+// 	const { jobs, search, sort, status, type } = allJobs
 
-	if (jobs.length < 1) return []
+// 	if (jobs.length < 1) return []
 
-	const filteredJobs = jobs.filter((job) => {
-		const { company, jobLocation, position } = job
-		return (
-			company.includes(search) ||
-			jobLocation.includes(search) ||
-			position.includes(search)
-		)
-	})
-	return filteredJobs
-})
+// 	const filteredJobs = jobs.filter((job) => {
+// 		const { company, jobLocation, position } = job
+// 		return (
+// 			company.includes(search) ||
+// 			jobLocation.includes(search) ||
+// 			position.includes(search)
+// 		)
+// 	})
+// 	return filteredJobs
+// })

@@ -22,6 +22,7 @@ const initialState = {
 	jobs: [],
 	numOfPages: 0,
 	totalJobs: 0,
+	page: 1,
 	...filterInititalState,
 	defaultStats: {},
 	monthlyApplications: [],
@@ -46,6 +47,9 @@ const slice = createSlice({
 		},
 		setStats(state, { payload }) {
 			return { ...state, ...payload }
+		},
+		setPage(state, { payload }) {
+			state.page = payload
 		},
 	},
 	extraReducers: (builder) => {
@@ -87,4 +91,5 @@ export const {
 	unsetJobsLoading,
 	setJobsLoading,
 	setStats,
+	setPage,
 } = slice.actions

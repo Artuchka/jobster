@@ -59,6 +59,14 @@
 	}
 }
 
+.loading-comp {
+	animation: spin-load 1s infinite;
+	transform-origin: 0 0;
+	position: relative;
+	left: 50%;
+	margin-block: 1rem;
+}
+
 @keyframes anima {
 	from {
 		top: 50%;
@@ -67,5 +75,13 @@
 	to {
 		top: 50%;
 		left: 50%;
+	}
+}
+@keyframes spin-load {
+	from {
+		rotate: 0deg;
+	}
+	to {
+		rotate: 360deg;
 	}
 }
