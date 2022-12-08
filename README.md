@@ -1,6 +1,6 @@
 # Jobstat (inspired by Jobster by John Smigla)
 
-[Live](https://jobstat.netlify.app/landing)
+[Live](jobstat.netlify.app/landing)
 
 Stack: 
 - React 18
