@@ -12,7 +12,7 @@ export const JobContainer = () => {
 	}
 
 	console.log(jobs)
-	if (jobs.length < 1) {
+	if (!jobs || jobs.length < 1) {
 		return <h1>no jobs found sorry</h1>
 	}
 	return (
