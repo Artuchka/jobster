@@ -1,4 +1,4 @@
-# Jobstat (inspired by Jobster by John Smigla)
+# Jobstat (inspiration from Jobster by John Smigla)
 
 [Live](https://jobstat.netlify.app)
 
