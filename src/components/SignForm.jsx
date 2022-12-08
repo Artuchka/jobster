@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { useNavigate } from "react-router-dom"
 import { toast } from "react-toastify"
 import {
+	loginTestUser,
 	loginUser,
 	registerUser,
 	selectUser,
@@ -16,6 +17,7 @@ const initialState = {
 	email: "yandex@gmail.com",
 	password: "1234567",
 	isMember: true,
+	isTestUser: false,
 }
 export const SignForm = () => {
 	const [values, setValues] = useState(initialState)
@@ -62,7 +64,9 @@ export const SignForm = () => {
 		}
 
 		if (values.isMember) {
-			dispatch(loginUser(values))
+			if (values.isTestUser) {
+				dispatch(loginTestUser(values))
+			} else dispatch(loginUser(values))
 		} else {
 			dispatch(registerUser(values))
 		}
@@ -106,6 +110,9 @@ export const SignForm = () => {
 				className="w-full py-2 !bg-blue-light !text-blue-primary
             hover:!bg-blue-dark hover:!text-blue-light"
 				type="submit"
+				onClick={() =>
+					setValues((prev) => ({ ...prev, isTestUser: true }))
+				}
 			>
 				Demo App
 			</Button>

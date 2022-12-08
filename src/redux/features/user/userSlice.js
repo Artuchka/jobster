@@ -25,6 +25,17 @@ export const loginUser = createAsyncThunk(
 	}
 )
 
+const testUser = {
+	email: "testUser@test.com",
+	password: "secret",
+}
+export const loginTestUser = createAsyncThunk(
+	"user/loginUser",
+	async (_, thunkAPI) => {
+		return loginUserThunk("/auth/login", testUser, thunkAPI)
+	}
+)
+
 export const updateUser = createAsyncThunk(
 	"user/updateUser",
 	async (user, thunkAPI) => {
