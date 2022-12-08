@@ -59,7 +59,7 @@ export const SearchForm = () => {
 					name="status"
 					value={status}
 					handleChange={handleChange}
-					options={statusOptions}
+					options={["all", ...statusOptions]}
 				/>
 
 				<SelectRow
@@ -67,7 +67,7 @@ export const SearchForm = () => {
 					name="type"
 					value={type}
 					handleChange={handleChange}
-					options={typeOptions}
+					options={["all", ...typeOptions]}
 				/>
 
 				<SelectRow

@@ -11,8 +11,8 @@ const initialState = {
 	jobLocation: "",
 	status: "interview",
 	statusOptions: ["interview", "pending", "declined"],
-	jobType: "internship",
-	jobTypeOptions: ["full-time", "part-time", "internship", "remote"],
+	jobType: "intership",
+	jobTypeOptions: ["full-time", "part-time", "intership", "remote"],
 	isLoading: false,
 
 	isEditing: false,
