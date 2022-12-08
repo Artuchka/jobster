@@ -6,6 +6,9 @@ import { JobStatus } from "./JobStatus"
 import { Button } from "./Button"
 import { ButtonLight } from "./ButtonLight"
 import { useDispatch } from "react-redux"
+import { removeJob, setEditJob } from "../redux/features/addJob/addJobSlice"
+import moment from "moment"
+import { Link } from "react-router-dom"
 
 export const JobItem = (props) => {
 	const { company, jobLocation, position, jobType, status, _id, createdAt } =
@@ -33,21 +36,42 @@ export const JobItem = (props) => {
 				</div>
 				<div className="flex gap-3 ">
 					<BsFillCalendar2WeekFill className="text-gray-primary" />
-					<span className="text-blue-dark">{createdAt}</span>
+					<span className="text-blue-dark">
+						{moment(createdAt).format("MMM Do YY")}
+					</span>
 				</div>
 
 				<div className="flex gap-3 ">
 					<MdOutlineBusinessCenter className="text-gray-primary" />
 					<span className="text-blue-dark">{jobType}</span>
 				</div>
-				<JobStatus>declined</JobStatus>
+				<JobStatus status={status} />
 			</div>
 
 			<div className="buttons flex gap-3 px-4 pb-4 ">
-				<ButtonLight state="green" onClick={() => dispatch()}>
-					edit
-				</ButtonLight>
-				<ButtonLight state="red" onClick={() => dispatch()}>
+				<Link to="/add-job">
+					<ButtonLight
+						state="green"
+						onClick={() =>
+							dispatch(
+								setEditJob({
+									company,
+									jobLocation,
+									position,
+									jobType,
+									status,
+									editId: _id,
+								})
+							)
+						}
+					>
+						edit
+					</ButtonLight>
+				</Link>
+				<ButtonLight
+					state="red"
+					onClick={() => dispatch(removeJob(_id))}
+				>
 					delete
 				</ButtonLight>
 			</div>

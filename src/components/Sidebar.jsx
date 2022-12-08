@@ -28,7 +28,7 @@ export const Sidebar = () => {
 							key={id}
 							to={path}
 							className={`flex gap-4  items-center text-2xl link `}
-							onClick={() => dispatch(closeSidebar())}
+							// onClick={() => dispatch(closeSidebar())}
 						>
 							<div className="text-3xl">{icon}</div>
 							<div className="">{title}</div>

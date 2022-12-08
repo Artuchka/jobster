@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
+import { useNavigate } from "react-router-dom"
 import { toast } from "react-toastify"
 import { InputRow } from "../components/InputRow"
 import { SelectRow } from "../components/SelectRow"
 import {
 	addJob,
 	clearAddJob,
+	saveEditedJob,
 	selectAddJob,
 	updateAddJob,
 } from "../redux/features/addJob/addJobSlice"
@@ -21,12 +23,13 @@ export const AddJob = () => {
 		statusOptions,
 		jobType,
 		jobTypeOptions,
+		isEditing,
 	} = useSelector(selectAddJob)
 
 	const { user } = useSelector(selectUser)
 
 	useEffect(() => {
-		if ("location" in user) {
+		if ("location" in user && !isEditing) {
 			dispatch(
 				updateAddJob({ name: "jobLocation", value: user.location })
 			)
@@ -34,6 +37,7 @@ export const AddJob = () => {
 	}, [])
 
 	const dispatch = useDispatch()
+	const navigate = useNavigate()
 
 	const handleChange = (e) => {
 		const { name, value } = e.target
@@ -45,7 +49,12 @@ export const AddJob = () => {
 			toast.error("complete all fields please")
 			return
 		}
-		dispatch(addJob())
+		if (isEditing) {
+			console.log("editing")
+			dispatch(saveEditedJob())
+		} else {
+			dispatch(addJob())
+		}
 	}
 	return (
 		<div
@@ -56,7 +65,9 @@ export const AddJob = () => {
 				className=" bg-white py-4 px-14 flex flex-col  gap-6  w-full max-w-4xl border-t-4 border-blue-primary rounded-lg shadow-md hover:shadow-2xl transition-all duration-700"
 				onSubmit={handleSubmit}
 			>
-				<h2 className="text-2xl text-blue-dark">Add Job</h2>
+				<h2 className="text-2xl text-blue-dark">
+					{!isEditing ? "Add Job" : "Edit Job"}
+				</h2>
 
 				<InputRow
 					title="Position"

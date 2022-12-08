@@ -1,7 +1,7 @@
 import { toast } from "react-toastify"
-import { customFetch } from "../../../utils/axiosCustom"
 import { getUserFromLS } from "../../../utils/localStorage"
-import { removeUser } from "../user/userSlice"
+
+import { addJobThunk, removeJobThunk, saveEditedJobThunk } from "./thunks"
 
 const { createSlice, createAsyncThunk } = require("@reduxjs/toolkit")
 
@@ -14,37 +14,17 @@ const initialState = {
 	jobType: "internship",
 	jobTypeOptions: ["full-time", "part-time", "internship", "remote"],
 	isLoading: false,
+
+	isEditing: false,
+	editId: "",
 }
 
-export const addJob = createAsyncThunk(
-	"jobs/createJob",
-	async (_, thunkAPI) => {
-		try {
-			const state = thunkAPI.getState()
-			const { position, company, jobLocation, status, jobType } =
-				state.addJob
-			const { data } = await customFetch.post(
-				"/jobs",
-				{ position, company, jobLocation, status, jobType },
-				{
-					headers: {
-						authorization: `Bearer ${state.user.user.token}`,
-					},
-				}
-			)
-			thunkAPI.dispatch(clearAddJob())
-			console.log(data.user)
-			return data.user
-		} catch (error) {
-			console.log(error)
+export const addJob = createAsyncThunk("jobs/createJob", addJobThunk)
 
-			if (error.status === 401) {
-				thunkAPI.dispatch(removeUser())
-				return
-			}
-			return thunkAPI.rejectWithValue(error.response.data.msg)
-		}
-	}
+export const removeJob = createAsyncThunk("jobs/removeJob", removeJobThunk)
+export const saveEditedJob = createAsyncThunk(
+	"jobs/saveEdited",
+	saveEditedJobThunk
 )
 
 const addJobSlice = createSlice({
@@ -61,6 +41,10 @@ const addJobSlice = createSlice({
 			const { name, value } = payload
 			state[name] = value
 		},
+
+		setEditJob(state, { payload }) {
+			return { ...state, ...payload, isEditing: true }
+		},
 	},
 
 	extraReducers: (builder) => {
@@ -75,10 +59,24 @@ const addJobSlice = createSlice({
 			state.isLoading = false
 			toast.error(`Error: ${payload}`)
 		})
+
+		builder.addCase(removeJob.fulfilled, (state, { payload }) => {
+			toast.success("deleted")
+		})
+		builder.addCase(removeJob.rejected, (state, { payload }) => {
+			toast.error(payload)
+		})
+
+		builder.addCase(saveEditedJob.fulfilled, (state, { payload }) => {
+			toast.success("save edited version!")
+		})
+		builder.addCase(saveEditedJob.rejected, (state, { payload }) => {
+			toast.error(payload)
+		})
 	},
 })
 
 export default addJobSlice.reducer
-export const { clearAddJob, updateAddJob } = addJobSlice.actions
+export const { clearAddJob, updateAddJob, setEditJob } = addJobSlice.actions
 
 export const selectAddJob = (state) => state.addJob

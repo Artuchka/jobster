@@ -1,4 +1,4 @@
-import { removeUser } from "../user/userSlice"
+import { getJobsThunk } from "./thunks"
 
 const {
 	createSlice,
@@ -6,29 +6,11 @@ const {
 	createSelector,
 } = require("@reduxjs/toolkit")
 const { toast } = require("react-toastify")
-const { customFetch } = require("../../../utils/axiosCustom")
 
-const HTTP_UNAUTHORIZED_CODE = 401
-
-export const getJobs = createAsyncThunk("jobs/get", async (_, thunkAPI) => {
-	try {
-		const { data } = await customFetch.get("/jobs", {
-			headers: {
-				authorization: `Bearer ${thunkAPI.getState().user.user.token}`,
-			},
-		})
-		return data
-	} catch (error) {
-		if (error.response.status === HTTP_UNAUTHORIZED_CODE) {
-			thunkAPI.dispatch(removeUser())
-			return thunkAPI.rejectWithValue(error.response.data.msg)
-		}
-		return thunkAPI.rejectWithValue(error.response.data.msg)
-	}
-})
+export const getJobs = createAsyncThunk("jobs/get", getJobsThunk)
 
 const filterInititalState = {
-	search: "testWork",
+	search: "",
 	status: "interview",
 	type: "internsip",
 	sort: "name-za",
@@ -44,6 +26,7 @@ const initialState = {
 	totalJobs: 0,
 	...filterInititalState,
 }
+
 const slice = createSlice({
 	name: "allJobs",
 	initialState,
@@ -54,6 +37,12 @@ const slice = createSlice({
 		},
 		clearFilters() {
 			return { ...filterInititalState }
+		},
+		setJobsLoading(state) {
+			state.isLoading = true
+		},
+		unsetJobsLoading(state) {
+			state.isLoading = false
 		},
 	},
 	extraReducers: (builder) => {
@@ -76,24 +65,5 @@ const slice = createSlice({
 
 export default slice.reducer
 
-export const { updateFilters, clearFilters } = slice.actions
-export const selectAllJobs = (state) => state.allJobs
-// export const selectJobs = (state) => state.allJobs.jobs
-// export const selectJobsFilter = (state) => state.allJobs
-
-export const selectFilteredJobs = createSelector([selectAllJobs], (allJobs) => {
-	console.log(allJobs)
-	const { jobs, search, sort, status, type } = allJobs
-
-	if (jobs.length < 1) return { jobs }
-
-	const filteredJobs = jobs.filter((job) => {
-		const { company, jobLocation, position } = job
-		return (
-			company.includes(search) ||
-			jobLocation.includes(search) ||
-			position.includes(search)
-		)
-	})
-	return { jobs: filteredJobs }
-})
+export const { updateFilters, clearFilters, unsetJobsLoading, setJobsLoading } =
+	slice.actions
