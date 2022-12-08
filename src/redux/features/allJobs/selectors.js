@@ -1,6 +1,10 @@
 import { createSelector } from "@reduxjs/toolkit"
 
 export const selectAllJobs = (state) => state.allJobs
+export const selectStats = (state) => ({
+	defaultStats: state.allJobs.defaultStats,
+	monthlyApplications: state.allJobs.monthlyApplications,
+})
 
 export const selectFilteredJobs = createSelector([selectAllJobs], (allJobs) => {
 	const { jobs, search, sort, status, type } = allJobs

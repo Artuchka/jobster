@@ -1,13 +1,11 @@
-import { getJobsThunk } from "./thunks"
+import { getJobsThunk, getStatsThunk } from "./thunks"
 
-const {
-	createSlice,
-	createAsyncThunk,
-	createSelector,
-} = require("@reduxjs/toolkit")
+const { createSlice, createAsyncThunk } = require("@reduxjs/toolkit")
 const { toast } = require("react-toastify")
 
 export const getJobs = createAsyncThunk("jobs/get", getJobsThunk)
+
+export const getStats = createAsyncThunk("jobs/stats", getStatsThunk)
 
 const filterInititalState = {
 	search: "",
@@ -25,6 +23,8 @@ const initialState = {
 	numOfPages: 0,
 	totalJobs: 0,
 	...filterInititalState,
+	defaultStats: {},
+	monthlyApplications: [],
 }
 
 const slice = createSlice({
@@ -44,6 +44,9 @@ const slice = createSlice({
 		unsetJobsLoading(state) {
 			state.isLoading = false
 		},
+		setStats(state, { payload }) {
+			return { ...state, ...payload }
+		},
 	},
 	extraReducers: (builder) => {
 		builder.addCase(getJobs.pending, (state) => {
@@ -60,10 +63,28 @@ const slice = createSlice({
 			state.isLoading = false
 			toast.error(payload)
 		})
+
+		builder.addCase(getStats.pending, (state) => {
+			state.isLoading = true
+		})
+		builder.addCase(getStats.fulfilled, (state, { payload }) => {
+			state.isLoading = false
+			state.defaultStats = payload.defaultStats
+			state.monthlyApplications = payload.monthlyApplications
+		})
+		builder.addCase(getStats.rejected, (state, { payload }) => {
+			state.isLoading = false
+			toast.error(payload)
+		})
 	},
 })
 
 export default slice.reducer
 
-export const { updateFilters, clearFilters, unsetJobsLoading, setJobsLoading } =
-	slice.actions
+export const {
+	updateFilters,
+	clearFilters,
+	unsetJobsLoading,
+	setJobsLoading,
+	setStats,
+} = slice.actions
