@@ -10,10 +10,10 @@ export const getStats = createAsyncThunk("jobs/stats", getStatsThunk)
 const filterInititalState = {
 	search: "",
 	status: "interview",
-	type: "internsip",
+	type: "intership",
 	sort: "name-za",
 	statusOptions: ["pending", "declined", "interview"],
-	typeOptions: ["internsip", "part-time", "full-time", "remote"],
+	typeOptions: ["intership", "part-time", "full-time", "remote"],
 	sortOptions: ["name-az", "name-za", "a", "b"],
 }
 
