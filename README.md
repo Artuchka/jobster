@@ -22,7 +22,6 @@ Delete old job interviews.
 - Recharts
 - moment.js
 - SCSS
-- Styled Components
 - Tailwindcss
 - Vite
 
