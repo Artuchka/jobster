@@ -21,7 +21,6 @@ Delete old job interviews.
 - React Router Dom
 - Recharts
 - moment.js
-- SCSS
 - Tailwindcss
 - Vite
 
